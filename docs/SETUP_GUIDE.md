@@ -21,7 +21,7 @@ Ensure you have the following installed:
     ```
 3.  **Setup Secrets**:
     -   Copy `config/.env.example` to `config/.env`.
-    -   Fill in your Kafka credentials and PostgreSQL password.
+    -   Fill in your **Confluent Cloud** API keys (found in the Confluent Console under 'API Keys') and your PostgreSQL password.
 
 ## Phase 3: Infrastructure
 1.  **Database**: Run `docker-compose -f kafka/docker-compose.yml up -d`.
