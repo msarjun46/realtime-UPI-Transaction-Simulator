@@ -1,3 +1,13 @@
+# Technical Architecture & Requirements Definition
+
+## 1. Project Requirements & Objectives
+The goal of this system is to provide a resilient, high-velocity UPI ecosystem simulation.
+-   **Functional Requirements**: Real-time Kafka streaming (400k records), 55-field Medallion transformation, real-time Fraud Scoring (>0.85), and national Geo-Spatial mapping.
+-   **Technical Specifications**: Python 3.14+, Confluent Cloud (Kafka), Databricks (Spark), and PostgreSQL (Local Store).
+-   **Core Dependencies**: `confluent-kafka`, `sqlalchemy`, `psycopg2-binary`, `python-dotenv`, `loguru`, and `pyspark`.
+
+---
+
 # Technical Architecture: High-Fidelity UPI Simulation
 
 This project implements a Production-Grade Hybrid Medallion Architecture, designed to handle the complexity of 55+ analytical data dimensions in real-time.

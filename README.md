@@ -15,6 +15,13 @@ This pipeline captures this journey, transforms it into clean insights, and serv
 
 ---
 
+## Project Documentation
+-   **[Architecture & Requirements](docs/ARCHITECTURE.md)**: Technical design, data flow, and project specifications.
+-   **[Operational SOP](docs/SOP.md)**: Professional standards and maintenance.
+-   **[Step-by-Step Setup](docs/SETUP_GUIDE.md)**: Installation and execution manual.
+
+---
+
 ## Technical Stack
 -   **Streaming Engine**: Apache Kafka (Confluent Cloud)
 -   **Processing Layer**: PySpark / Spark Structured Streaming (Databricks)
