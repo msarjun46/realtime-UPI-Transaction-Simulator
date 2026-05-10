@@ -6,6 +6,13 @@ The goal of this system is to provide a resilient, high-velocity UPI ecosystem s
 -   **Technical Specifications**: Python 3.14+, Confluent Cloud (Kafka), Databricks (Spark), and PostgreSQL (Local Store).
 -   **Core Dependencies**: `confluent-kafka`, `sqlalchemy`, `psycopg2-binary`, `python-dotenv`, `loguru`, and `pyspark`.
 
+The following libraries are required for the local environment:
+-   `confluent-kafka`: Kafka client for Python.
+-   `sqlalchemy` & `psycopg2-binary`: Relational database mapping.
+-   `python-dotenv`: Secure environment variable management.
+-   `loguru`: Professional-grade logging.
+-   `pyspark`: Spark logic and schema definitions.
+
 ---
 
 # Technical Architecture: High-Fidelity UPI Simulation
