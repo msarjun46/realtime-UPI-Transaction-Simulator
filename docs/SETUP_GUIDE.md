@@ -12,7 +12,7 @@ Ensure you have the following installed:
 ## Phase 2: Environment Configuration
 1.  **Clone the Repository**:
     ```bash
-    git clone https://github.com/your-username/upi_transaction_simulator.git
+    git clone https://github.com/mdsarjun46/upi_transaction_simulator.git
     cd upi_transaction_simulator
     ```
 2.  **Install Dependencies**:

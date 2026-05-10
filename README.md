@@ -16,19 +16,20 @@ This pipeline captures this journey, transforms it into clean insights, and serv
 ---
 
 ## Technical Stack
--   **Streaming**: Apache Kafka (Confluent Cloud)
--   **Processing**: PySpark / Spark Structured Streaming
--   **Storage**: Delta Lake (Databricks)
--   **Database**: PostgreSQL (Relational Model)
--   **Environment**: Python 3.14+, Docker
+-   **Streaming Engine**: Apache Kafka (Confluent Cloud)
+-   **Processing Layer**: PySpark / Spark Structured Streaming (Databricks)
+-   **Cloud Storage**: Delta Lake (ACID compliant)
+-   **Analytical Database**: **PostgreSQL** (Relational Serving Layer)
+-   **Visualization**: **Power BI** (Real-Time Dashboards)
+-   **Orchestration**: Python 3.14+, Docker
 
 ---
 
-## Medallion Architecture
-The project utilizes the Medallion Pattern to ensure a single source of truth:
--   **Bronze**: Raw data preservation for auditing and re-processing.
--   **Silver**: Data cleaning, deduplication, and strict schema enforcement.
--   **Gold**: High-level business KPI aggregations and windowed analytics.
+## Medallion Architecture (The Elite 55-Field Schema)
+The project utilizes the Medallion Pattern to process 55+ high-fidelity analytical fields:
+-   **Bronze**: The "Memory"—Saving raw JSON logs exactly as they arrive from Kafka.
+-   **Silver**: The "Filter"—Where we apply strict schemas, deduplicate data, and calculate **Fraud Scores** and **Geo-Location** features.
+-   **Gold**: The "Wisdom"—Where we perform windowed aggregations for live Hourly KPIs.
 
 ---
 

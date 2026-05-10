@@ -1,20 +1,57 @@
-# Technical Architecture: A Hybrid Streaming Model
+# Technical Architecture: High-Fidelity UPI Simulation
 
-This project implements a Hybrid Cloud-Local Medallion Architecture to handle high-velocity UPI transaction data with resilience and integrity.
+This project implements a Production-Grade Hybrid Medallion Architecture, designed to handle the complexity of 55+ analytical data dimensions in real-time.
 
-## 1. Data Ingestion (Kafka)
--   **Infrastructure**: Confluent Cloud (managed Kafka).
--   **Strategy**: Kafka provides the durability and throughput needed to handle hundreds of thousands of messages. It acts as a system shock absorber, decoupling production simulators from analytical processors.
+---
 
-## 2. Medallion Design (Databricks)
--   **Bronze (Raw Layer)**: Serves as the system audit trail. Stores raw JSON payloads precisely as they arrived from Kafka.
--   **Silver (Cleaned Layer)**: Applies strict financial schemas, performs event-time deduplication, and engineers features like unified timestamps.
--   **Gold (Aggregated Layer)**: Utilizes stateful structured streaming to calculate hourly windowed KPIs with watermarking for late-arriving data.
+## 🏗️ The Data Flow (Medallion Pattern)
 
-## 3. Analytics Bridge (Local Sync)
--   **Engine**: Python and SQLAlchemy.
--   **Logic**: Performs idempotent upserts (ON CONFLICT) to ensure data synchronization between cloud Delta Lake and local PostgreSQL without duplication.
+```mermaid
+graph LR
+    A[Data Generator] -->|400k Stream| B[Kafka Cloud]
+    B -->|Raw| C[Bronze Table]
+    C -->|Cleaned/55 Fields| D[Silver Table]
+    D -->|Aggregated KPIs| E[Gold Table]
+    D & E -->|Kafka Bridge| F[PostgreSQL]
+    F -->|DirectQuery| G[Power BI Dashboard]
+```
 
-## 4. Technology Selection
--   **Delta Lake**: Chosen for financial ACID compliance.
--   **Stateful Streaming**: Enables live hourly updates rather than batch processing.
+---
+
+## 🛠️ Technical Deep Dive
+
+### 1. The Elite Data Model (55+ Fields)
+Unlike basic simulators, this project generates a high-fidelity dataset following NPCI standards:
+-   **Financials**: Bank RRN, VPA handles, Bank Account masking, and Response Codes (00, ZA, etc.).
+-   **Risk & Security**: Real-time **Fraud Scoring** (0.0 - 1.0) and automated Boolean flagging.
+-   **Geo-Spatial**: Precise Latitude/Longitude coordinates for 500+ Indian cities.
+-   **Hardware Fingerprinting**: Device IDs, OS types (iOS/Android), and App versions.
+
+### 2. Stream Processing (Databricks + Spark)
+-   **Resilience**: Using `checkpointLocation` to ensure zero data loss during restarts.
+-   **Quality**: Utilizing Spark's `dropDuplicates` to ensure each of the 400,000 transactions is processed exactly once (Idempotency).
+-   **Time-Awareness**: Implementing **Watermarking** (10-minute threshold) to handle delayed messages from poor network zones.
+
+### 3. The Analytical Serving Layer (PostgreSQL)
+While the cloud handles the heavy lifting, we sync the cleaned data back to a local **PostgreSQL** instance to enable cost-effective, high-speed analytical queries.
+-   **Relational Model**: We maintain a structured schema including `upi_transactions`, `upi_merchant_transactions`, and `upi_transaction_gold`.
+-   **Idempotent Upserts**: The bridge uses `ON CONFLICT` logic to ensure that our local database stays 100% synchronized with the cloud without record duplication.
+
+### 4. Visualization & Business Intelligence (Power BI)
+The final stage is a professional **Power BI Dashboard** that connects to PostgreSQL via DirectQuery.
+-   **Real-Time Monitoring**: Live tracking of transaction success vs. failure rates.
+-   **Risk Heatmaps**: Visualizing the **Fraud Score** across different merchant categories.
+-   **Spatial Mapping**: Using latitude/longitude to map national spending trends across India.
+
+---
+
+## 📈 Strategic Value
+This architecture demonstrates:
+1.  **Scalability**: Capability to handle hundreds of thousands of messages.
+2.  **Integrity**: Strict schema enforcement in a schema-less environment (JSON).
+3.  **Visualization**: Real-time mapping and fraud detection dashboards.
+
+---
+
+**Lead Engineer**: Mohamed Sarjun J  
+**Email**: sarjunmd1204@gmail.com
